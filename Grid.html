@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        text-emphasis: bold;
+    }
+    body{
+        width: 100vw;
+        height: 100vh;
+    }
+    .container{
+        display: grid;
+        grid-template-columns: repeat(4,120px);
+        grid-template-rows: repeat(5,120px);
+        border: 2px solid rgb(0, 0, 0);
+        justify-content: center;
+        align-content: center;
+        width: 100%;
+        height: 100%;
+        gap: 10px;
+        background-color: rgb(204, 145, 255);
+    }
+    .child{
+        font-size: 25px;
+        color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid rgb(255, 255, 255);
+        background-color: rgb(255, 154, 154);
+
+    }
+    #c1{
+        grid-column-start: 1;
+        grid-column-end: 5;
+    }
+    #c2{
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 4;
+    }
+    #c3{
+        grid-column-start: 2;
+        grid-column-end: 4;
+        grid-row-start: 2;
+        grid-row-end: 5;
+    }
+    #c4{
+        grid-column-start: 4;
+        grid-column-end: 5;
+        grid-row-start: 2;
+        grid-row-end: 5;
+    }
+    #c6{
+        grid-column-start: 1;
+        grid-column-end: 5;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="child" id="c1">
+            Header
+        </div>
+        <div class="child" id="c2">
+            Menu
+        </div>
+        <div class="child" id="c3">
+            Main
+        </div>
+        <div class="child" id="c4">
+            Ad1
+        </div>
+        <div class="child" id="c5">
+            Ad2
+        </div>
+        <div class="child" id="c6">
+            Footer
+        </div>
+    
+    </div>
+</body>
+</html>

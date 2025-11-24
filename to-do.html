@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="cont">
+        <h1>To-Do List</h1>
+        <input type="text" id="inp" placeholder="Enter a task">
+        <button id="btn" onclick="addItem()">Add</button>
+        <ul id="list"></ul>
+    </div>
+
+    <script>
+        let inputBox = document.getElementById("inp");
+        let list = document.getElementById("list");
+
+        function addItem() {
+            let inputValue = inputBox.value.trim();
+
+            if (inputValue === "") {
+                alert("Please enter a task!");
+                return;
+            }
+
+            let li = document.createElement("li");
+            li.classList.add("list-item");
+
+            let span = document.createElement("span");
+            span.textContent = inputValue;
+
+            let delBtn = document.createElement("button");
+            delBtn.textContent = "X";
+            delBtn.classList.add("del-btn");
+
+            delBtn.addEventListener("click", () => {
+                list.removeChild(li);
+            });
+
+            li.appendChild(span);
+            li.appendChild(delBtn);
+            list.appendChild(li);
+
+            inputBox.value = "";
+        }
+    </script>
+</body>
+</html>
