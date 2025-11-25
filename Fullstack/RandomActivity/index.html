@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Activity Explorer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .container {
+            width: 350px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #444;
+            font-style: italic;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Random Activity Explorer</h2>
+
+        <select id="typeSelect">
+            <option value="">-- Filter by Type (Optional) --</option>
+            <option value="education">Education</option>
+            <option value="recreational">Recreational</option>
+            <option value="social">Social</option>
+            <option value="cooking">Cooking</option>
+            <option value="relaxation">Relaxation</option>
+            <option value="busywork">Busywork</option>
+        </select>
+
+        <div id="activityCard" class="card">
+            <p>Loading activity...</p>
+        </div>
+
+        <button id="btn" class="btn">Get Another Activity</button>
+        <p id="errorMsg" class="error"></p>
+    </div>
+
+<script>
+    let activityCard = document.getElementById("activityCard");
+    let errorMsg = document.getElementById("errorMsg");
+    let typeSelect = document.getElementById("typeSelect");
+
+    async function fetchActivity() {
+        activityCard.innerHTML = "<p class='loading'>Loading...</p>";
+        errorMsg.textContent = "";
+
+        let type = typeSelect.value;
+        let url = "https://www.boredapi.com/api/activity";
+
+        if (type !== "") {
+            url += `?type=${type}`;
+        }
+
+        try {
+            let res = await fetch(url);
+
+            if (!res.ok) {
+                throw new Error("API error");
+            }
+
+            let data = await res.json();
+
+            activityCard.innerHTML = `
+                <h3>${data.activity}</h3>
+                <p><strong>Type:</strong> ${data.type}</p>
+                <p><strong>Participants:</strong> ${data.participants}</p>
+            `;
+        } 
+        catch (err) {
+            activityCard.innerHTML = "";
+            errorMsg.textContent = "Oops, something went wrong — please try again.";
+        }
+    }
+
+    document.getElementById("btn").addEventListener("click", fetchActivity);
+
+    fetchActivity();  // load first activity on page load
+</script>
+
+</body>
+</html>
